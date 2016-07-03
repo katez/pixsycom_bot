@@ -14,8 +14,23 @@ end
 
 client = Slack::RealTime::Client.new
 
+def create_slack_post client
+  # client.chat_postMessage(channel: '#random', text: 'Hello World', as_user: false)
+  client.files_upload(
+    channels: '#random',
+     as_user: true,
+     content: 'Superhero things',
+     filename: 'document.txt',
+     filetype: 'post',
+     editable: true,
+     initial_comment: 'Attached a file.'
+  )
+end
+
+
 # listen for hello (connection) event - https://api.slack.com/events/hello
 client.on :hello do
+  create_slack_post Slack::Web::Client.new
   logger.debug("Connected '#{client.self['name']}' to '#{client.team['name']}' team at https://#{client.team['domain']}.slack.com.")
 end
 
