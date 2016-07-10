@@ -3,6 +3,8 @@ require 'logging'
 require 'clockwork'
 require 'date'
 
+CHANNEL = '#botty_goes_for_a_sail'
+
 logger = Logging.logger(STDOUT)
 logger.level = :debug
 
@@ -17,9 +19,9 @@ end
 client = Slack::RealTime::Client.new
 
 def create_slack_post client
-  # client.chat_postMessage(channel: '#random', text: 'Hello World', as_user: false)
+  # client.chat_postMessage(channel: CHANNEL, text: 'Hello World', as_user: false)
   @last_post=client.files_upload(
-    channels: '#random',
+    channels: CHANNEL,
      as_user: true,
      content: "#{week_from_today} SHS
      1. Weekly Overview
@@ -34,11 +36,11 @@ def create_slack_post client
 end
 
 def create_wednesday_reminder client
-  client.chat_postMessage(channel: '#random', text: "<!channel>: Please contribute to <#{last_post_url}|SHS agenda>", as_user: true)
+  client.chat_postMessage(channel: CHANNEL, text: "<!channel>: Please contribute to <#{last_post_url}|SHS agenda>", as_user: true)
 end
 
 def create_friday_reminder client
-  client.chat_postMessage(channel: '#random', text: "<!channel>: Learn anything new this week? Add it to the <#{last_post_url}|SHS agenda>", as_user: true)
+  client.chat_postMessage(channel: CHANNEL, text: "<!channel>: Learn anything new this week? Add it to the <#{last_post_url}|SHS agenda>", as_user: true)
 end
 
 def week_from_today
