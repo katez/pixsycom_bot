@@ -1,6 +1,7 @@
 require 'slack-ruby-client'
 require 'logging'
 require 'clockwork'
+require 'date'
 
 logger = Logging.logger(STDOUT)
 logger.level = :debug
@@ -20,11 +21,11 @@ def create_slack_post client
   client.files_upload(
     channels: '#random',
      as_user: true,
-     content: 'DATE SHS
+     content: "#{week_from_today} SHS
      1. Weekly Overview
      2. Negotiations and case management
      3. Personal workflow - issues, optimization, suggestions
-     4. Tech tips',
+     4. Tech tips",
      filename: 'document.txt',
      filetype: 'post',
      editable: true,
@@ -32,10 +33,12 @@ def create_slack_post client
   )
 end
 
-
+def week_from_today
+  Date.today+7
+end
 # listen for hello (connection) event - https://api.slack.com/events/hello
 client.on :hello do
   logger.debug("Connected '#{client.self['name']}' to '#{client.team['name']}' team at https://#{client.team['domain']}.slack.com.")
 end
 
-Clockwork.every(1.week, 'post.shs_agenda', at: 'Sunday 18:00', tz: 'Europe/Berlin') { create_slack_post Slack::Web::Client.new }
+Clockwork.every(1.week, 'post.shs_agenda', at: 'Tuesday 12:00', tz: 'Europe/Berlin') { create_slack_post Slack::Web::Client.new }
