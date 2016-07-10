@@ -38,4 +38,4 @@ client.on :hello do
   logger.debug("Connected '#{client.self['name']}' to '#{client.team['name']}' team at https://#{client.team['domain']}.slack.com.")
 end
 
-Clockwork.every(1.week, 'post.shs_agenda', at: 'Tuesday 13:00') { create_slack_post Slack::Web::Client.new }
+Clockwork.every(1.week, 'post.shs_agenda', at: 'Tuesday 13:00', tz: 'Europe/Berlin') { create_slack_post Slack::Web::Client.new }
