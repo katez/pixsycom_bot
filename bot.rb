@@ -55,10 +55,10 @@ def week_from_today
 end
 
 def nudge_user_toggl_time client
-  # get all users from toggl
-  # filter out irrelevant users in management roles
-  # filter the users down to who hasn't logged in recently
-  # message these users  
+  all_users = get_users_from_toggl(toggl_client, workspace_id)
+  relevant_users = find_relevant_users(all_users)
+  lazy_users = find_not_logged_in_users(relevant_users)
+  direct_message_users(lazy_users)
 end
 
 def last_post_url
@@ -73,4 +73,4 @@ Clockwork.every(1.week, 'post.shs_agenda', at: 'Tuesday 13:00', tz: 'Europe/Berl
 Clockwork.every(1.week, 'post.reminder', at: 'Wednesday 16:00', tz: 'Europe/Berlin') { create_wednesday_reminder Slack::Web::Client.new }
 Clockwork.every(1.week, 'post.reminder', at: 'Friday 16:00', tz: 'Europe/Berlin') { create_friday_reminder Slack::Web::Client.new }
 
-Clockwork.every(3.minutes, 'post.message.nudge') { nudge_user_toggl_time Slack::Web::Client.new }
+#Clockwork.every(3.minutes, 'post.message.nudge') { nudge_user_toggl_time Slack::Web::Client.new }
