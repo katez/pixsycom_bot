@@ -6,6 +6,7 @@ GEM
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    awesome_print (1.7.0)
     clockwork (2.0.0)
       activesupport
       tzinfo
@@ -26,6 +27,7 @@ GEM
     i18n (0.7.0)
     json (1.8.3)
     little-plugger (1.1.4)
+    logger (1.2.8)
     logging (2.1.0)
       little-plugger (~> 1.1)
       multi_json (~> 1.10)
@@ -33,6 +35,7 @@ GEM
     multi_json (1.12.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
+    oj (2.17.1)
     slack-ruby-client (0.7.5)
       activesupport
       faraday
@@ -42,6 +45,10 @@ GEM
       json
       websocket-driver
     thread_safe (0.3.5)
+    togglv8 (1.1.0)
+      faraday
+      logger
+      oj
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     websocket-driver (0.6.4)
@@ -52,12 +59,14 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  awesome_print
   clockwork
   eventmachine
   faye-websocket
   httparty
   logging
   slack-ruby-client
+  togglv8
 
 BUNDLED WITH
    1.12.5

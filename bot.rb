@@ -2,12 +2,17 @@ require 'slack-ruby-client'
 require 'logging'
 require 'clockwork'
 require 'date'
+require 'togglv8'
 
 CHANNEL = '#botty_goes_for_a_sail'
 USER_TOGGL_TO_SLACK_MAPPING = {
   2071434 => 'kt'
-
 }
+MANGEMENT_USERS = [
+  2340030 #alexandra
+  2346716 #barbara
+]
+
 logger = Logging.logger(STDOUT)
 logger.level = :debug
 
@@ -54,8 +59,21 @@ def week_from_today
   Date.today+7
 end
 
-def nudge_user_toggl_time client
-  all_users = get_users_from_toggl(toggl_client, workspace_id)
+def workspace_id
+  @token = ||= begin
+    client = TogglV8::API.new(ENV['TOGGL_TOKEN'])
+    me = client.me
+    workspaces = client.my_workspaces(me)
+    workspaces.first['id']
+  end
+end
+
+def get_users_from_toggl toggl_client
+  toggl_client.users(workspace_id)
+end
+
+def nudge_user_toggl_time slack_client, toggl_client
+  all_users = get_users_from_toggl(toggl_client)
   relevant_users = find_relevant_users(all_users)
   lazy_users = find_not_logged_in_users(relevant_users)
   direct_message_users(lazy_users)
@@ -73,4 +91,4 @@ Clockwork.every(1.week, 'post.shs_agenda', at: 'Tuesday 13:00', tz: 'Europe/Berl
 Clockwork.every(1.week, 'post.reminder', at: 'Wednesday 16:00', tz: 'Europe/Berlin') { create_wednesday_reminder Slack::Web::Client.new }
 Clockwork.every(1.week, 'post.reminder', at: 'Friday 16:00', tz: 'Europe/Berlin') { create_friday_reminder Slack::Web::Client.new }
 
-#Clockwork.every(3.minutes, 'post.message.nudge') { nudge_user_toggl_time Slack::Web::Client.new }
+Clockwork.every(3.minutes, 'post.message.nudge') { nudge_user_toggl_time Slack::Web::Client.new, TogglV8::API.new(ENV['TOGGL_TOKEN']) }
