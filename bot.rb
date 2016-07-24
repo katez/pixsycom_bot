@@ -45,11 +45,11 @@ def create_slack_post client
 end
 
 def last_post_url
-  @last_post_url
+  File.read('last_post_url') rescue nil
 end
 
 def set_last_post_url last_post_url
-  @last_post_url= last_post_url
+  File.open('last_post_url', 'wb') { |file| file.write(last_post_url) }
 end
 
 def create_direct_message_nudge client, user
@@ -93,13 +93,8 @@ client.on :hello do
   logger.debug("Connected '#{client.self['name']}' to '#{client.team['name']}' team at https://#{client.team['domain']}.slack.com.")
 end
 
-Clockwork.every(3.minutes, 'post.shs_agenda', tz: 'Europe/Berlin') { create_slack_post Slack::Web::Client.new }
-#Clockwork.every(1.week, 'post.shs_agenda', at: 'Tuesday 13:00', tz: 'Europe/Berlin') { create_slack_post Slack::Web::Client.new }
-sleep 5
-Clockwork.every(3.minutes, 'post.reminder', tz: 'Europe/Berlin') { create_wednesday_reminder Slack::Web::Client.new }
-#Clockwork.every(1.week, 'post.reminder', at: 'Wednesday 16:00', tz: 'Europe/Berlin') { create_wednesday_reminder Slack::Web::Client.new }
-sleep 5
-Clockwork.every(3.minutes, 'post.reminder', at: 'Friday 16:00', tz: 'Europe/Berlin') { create_friday_reminder Slack::Web::Client.new }
-#Clockwork.every(1.week, 'post.reminder', at: 'Friday 16:00', tz: 'Europe/Berlin') { create_friday_reminder Slack::Web::Client.new }
+Clockwork.every(1.week, 'post.shs_agenda', at: 'Tuesday 13:00', tz: 'Europe/Berlin') { create_slack_post Slack::Web::Client.new }
+Clockwork.every(1.week, 'post.reminder', at: 'Wednesday 16:00', tz: 'Europe/Berlin') { create_wednesday_reminder Slack::Web::Client.new }
+Clockwork.every(1.week, 'post.reminder', at: 'Friday 16:00', tz: 'Europe/Berlin') { create_friday_reminder Slack::Web::Client.new }
 
 #Clockwork.every(3.minutes, 'post.message.nudge') { nudge_user_toggl_time Slack::Web::Client.new, TogglV8::API.new(ENV['TOGGL_TOKEN']) }
