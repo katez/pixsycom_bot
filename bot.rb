@@ -28,7 +28,7 @@ client = Slack::RealTime::Client.new
 
 def create_slack_post client
   # client.chat_postMessage(channel: CHANNEL, text: 'Hello World', as_user: false)
-  @last_post=client.files_upload(
+  last_post=client.files_upload(
     channels: CHANNEL,
      as_user: true,
      content: "#{week_from_today} SHS
@@ -41,6 +41,14 @@ def create_slack_post client
      editable: true,
      initial_comment: 'Attached a file.'
   )
+end
+
+def last_post
+  @last_post
+end
+
+def last_post= last_post
+  @last_post= last_post
 end
 
 def create_direct_message_nudge client, user
@@ -80,7 +88,7 @@ def nudge_user_toggl_time slack_client, toggl_client
 end
 
 def last_post_url
-  @last_post&.file&.url_private
+  last_post&.file&.url_private
 end
 # listen for hello (connection) event - https://api.slack.com/events/hello
 client.on :hello do
