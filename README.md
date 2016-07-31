@@ -33,3 +33,5 @@ This code is influenced by and utilizes the awesome https://github.com/dblock/sl
 ## License
 
 See the [LICENSE](LICENSE.md) file for license rights and limitations (MIT).
+
+## Building the bot was tricky- mostly figuring out the steps for making it live.
