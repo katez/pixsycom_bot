@@ -4,7 +4,7 @@ require 'clockwork'
 require 'date'
 require 'togglv8'
 
-CHANNEL = '#botty_goes_for_a_sail'
+CHANNEL = '#superhero'
 USER_TOGGL_TO_SLACK_MAPPING = {
   2071434 => 'kt'
 }
