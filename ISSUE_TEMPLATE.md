@@ -1,5 +1,5 @@
-Thanks for submitting an issue! Before submitting, have you searched this repository to make sure that it hasn't been previously submitted?
-
+<!-- Thanks for submitting an issue! Before submitting, have you searched this repository to make sure that it hasn't been previously submitted?
+-->
 ### Description
 
 The format of the title is as follows:
@@ -32,4 +32,6 @@ What was the timestamp of when this happened, browser version, Salesforce user I
 
 Any additional information, configuration or data that might be necessary to reproduce the issue.
 
+<!--
 Pro-tip: Github supports Markdown; use this styling to make your issue snazzy/easy to read. Here are two guides on this styling format: [guide 1](http://www.markdowntutorial.com/), [guide 2](https://guides.github.com/features/mastering-markdown/).
+-->
