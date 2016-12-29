@@ -5,7 +5,8 @@
 The format of the title is as follows:
 
 [Add applicable label here] Description of the issue
-[Here's a link to all the labels in this repository](https://github.com/pixsycom/pixsy-root/labels). Be sure to open this link in another window to not loose what you've written so far!
+<!--[Here's a link to all the labels in this repository](https://github.com/pixsycom/pixsy-root/labels). Be sure to open this link in another window to not loose what you've written so far!
+-->
 
 In the body of the issue, elaborate on the description here.
 
