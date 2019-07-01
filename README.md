@@ -1,7 +1,7 @@
 # starter-ruby-bot
 
 ## Overview
-A simple starting point for creating a Beep Boop hostable, Ruby based Slack bot.
+A simple Beep Boop hostable, Ruby based Slack bot for the customer service and copyright compliance team at Pixsy.
 
 Visit [Beep Boop](https://beepboophq.com/docs/article/overview) to get the scoop on the the Beep Boop hosting platform. The Slack API documentation can be found [here](https://api.slack.com/).
 
